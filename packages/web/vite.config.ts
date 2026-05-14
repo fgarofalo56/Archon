@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
   // Load env from repo root so PORT from .env is available
   const env = loadEnv(mode, path.resolve(__dirname, '../..'), '');
   const apiPort = env.PORT ?? '3090';
+  const webPort = Number(env.WEB_PORT ?? '5173');
 
   // Read version from root package.json
   const rootPkgPath = path.resolve(__dirname, '../../package.json');
@@ -45,7 +46,7 @@ export default defineConfig(({ mode }) => {
       ],
     },
     server: {
-      port: 5173,
+      port: webPort,
       proxy: {
         '/api': {
           target: `http://localhost:${apiPort}`,
